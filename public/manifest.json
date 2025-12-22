@@ -1,0 +1,40 @@
+{
+    "name": "MemberFlix",
+    "short_name": "MemberFlix",
+    "description": "Sua área de membros exclusiva com cursos e conteúdos premium.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#E50914",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icons/icon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "maskable any"
+        }
+    ],
+    "categories": [
+        "education",
+        "entertainment"
+    ],
+    "lang": "pt-BR",
+    "dir": "ltr",
+    "scope": "/",
+    "prefer_related_applications": false,
+    "shortcuts": [
+        {
+            "name": "Meus Cursos",
+            "short_name": "Cursos",
+            "description": "Acesse seus cursos",
+            "url": "/meus-cursos"
+        },
+        {
+            "name": "Meu Progresso",
+            "short_name": "Progresso",
+            "description": "Veja seu progresso",
+            "url": "/progresso"
+        }
+    ]
+}

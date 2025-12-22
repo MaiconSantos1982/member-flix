@@ -1,0 +1,518 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ============================================
+   DESIGN SYSTEM - CINEMA DARK THEME
+   ============================================ */
+
+:root {
+  --netflix-red: #E50914;
+  --netflix-red-hover: #F40612;
+  --netflix-black: #000000;
+  --netflix-dark: #141414;
+  --netflix-gray: #181818;
+  --netflix-gray-light: #2F2F2F;
+  --netflix-gray-lighter: #404040;
+  --netflix-text: #E5E5E5;
+  --netflix-text-muted: #808080;
+
+  /* Spacing */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --header-height: 64px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--netflix-black);
+  color: var(--netflix-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--netflix-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--netflix-gray-lighter);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--netflix-text-muted);
+}
+
+/* Hide scrollbar for horizontal carousels */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================
+   COMPONENT UTILITIES
+   ============================================ */
+
+/* Glass Effect */
+.glass {
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Netflix Button Styles */
+.btn-primary {
+  @apply bg-netflix-red text-white font-semibold px-6 py-3 rounded-md transition-all duration-200 hover:bg-netflix-red-hover active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-secondary {
+  @apply bg-netflix-gray-lighter text-white font-medium px-6 py-3 rounded-md transition-all duration-200 hover:bg-netflix-gray-light active:scale-95 border border-netflix-gray-light;
+}
+
+.btn-ghost {
+  @apply bg-transparent text-netflix-text font-medium px-4 py-2 rounded-md transition-all duration-200 hover:bg-white/10 active:scale-95;
+}
+
+/* Card Styles */
+.card-course {
+  @apply relative aspect-video rounded-lg overflow-hidden cursor-pointer transition-all duration-300 hover:scale-105 hover:z-10 bg-netflix-gray;
+}
+
+.card-course::after {
+  @apply absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 transition-opacity duration-300;
+  content: '';
+}
+
+.card-course:hover::after {
+  @apply opacity-100;
+}
+
+/* Input Styles */
+.input-field {
+  @apply w-full bg-netflix-gray-lighter text-white py-3 pr-4 rounded-md border border-transparent focus:border-netflix-red focus:outline-none placeholder:text-netflix-text-muted transition-all duration-200;
+  padding-left: 1rem;
+  /* Default, can be overridden by pl-* classes */
+}
+
+/* ============================================
+   CAROUSEL STYLES
+   ============================================ */
+
+.carousel-container {
+  @apply relative overflow-hidden;
+}
+
+.carousel-track {
+  @apply flex gap-3 overflow-x-auto hide-scrollbar scroll-smooth py-2;
+}
+
+.carousel-item {
+  @apply flex-shrink-0;
+  width: calc(33.333% - 8px);
+}
+
+@media (max-width: 1024px) {
+  .carousel-item {
+    width: calc(50% - 6px);
+  }
+}
+
+@media (max-width: 640px) {
+  .carousel-item {
+    width: calc(100% - 4px);
+  }
+}
+
+/* ============================================
+   SIDEBAR STYLES
+   ============================================ */
+
+.sidebar {
+  @apply fixed left-0 top-0 h-full z-40 bg-netflix-dark border-r border-white/5 transition-all duration-300;
+  width: var(--sidebar-width);
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar-overlay {
+  @apply fixed inset-0 bg-black/60 z-30 lg:hidden;
+}
+
+/* ============================================
+   PLAYER STYLES
+   ============================================ */
+
+.player-container {
+  @apply relative w-full aspect-video bg-black rounded-lg overflow-hidden;
+}
+
+/* Watermark overlay */
+.watermark {
+  @apply absolute inset-0 flex items-center justify-center pointer-events-none select-none z-20;
+}
+
+.watermark-text {
+  @apply text-white/10 text-lg font-light rotate-[-15deg] whitespace-nowrap;
+}
+
+/* Disable context menu on player */
+.no-context-menu {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* ============================================
+   PDF READER STYLES
+   ============================================ */
+
+.pdf-container {
+  @apply relative bg-netflix-dark rounded-lg overflow-hidden;
+}
+
+.pdf-page {
+  @apply w-full select-none pointer-events-none;
+}
+
+/* ============================================
+   MODAL/DRAWER STYLES
+   ============================================ */
+
+.modal-backdrop {
+  @apply fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4;
+}
+
+.modal-content {
+  @apply bg-netflix-dark rounded-xl max-w-lg w-full max-h-[90vh] overflow-auto animate-fade-in border border-white/10;
+}
+
+.drawer {
+  @apply fixed right-0 top-0 h-full bg-netflix-dark z-50 w-full max-w-md border-l border-white/10 animate-slide-in-right;
+}
+
+/* ============================================
+   SKELETON LOADING
+   ============================================ */
+
+.skeleton {
+  @apply bg-netflix-gray animate-pulse rounded;
+}
+
+.skeleton-shimmer {
+  @apply relative overflow-hidden;
+  background: linear-gradient(90deg,
+      var(--netflix-gray) 0%,
+      var(--netflix-gray-light) 50%,
+      var(--netflix-gray) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ============================================
+   PROGRESS BAR
+   ============================================ */
+
+.progress-bar {
+  @apply h-1 bg-netflix-gray-lighter rounded-full overflow-hidden;
+}
+
+.progress-bar-fill {
+  @apply h-full bg-netflix-red transition-all duration-500;
+}
+
+/* ============================================
+   KINDLE STYLE DESIGN SYSTEM
+   ============================================ */
+
+/* Kindle Background */
+.kindle-bg {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+  min-height: 100vh;
+}
+
+/* Kindle Search Input */
+.kindle-search-input {
+  @apply w-full bg-white/5 text-white py-3.5 px-12 rounded-xl border border-white/10 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 placeholder:text-gray-500 transition-all duration-200;
+  font-size: 16px;
+  /* Prevent zoom on iOS */
+}
+
+/* Kindle Grid - 1-2 colunas otimizado para UX */
+.kindle-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 480px) {
+  .kindle-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .kindle-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .kindle-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .kindle-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+/* Kindle Card */
+.kindle-card {
+  @apply relative rounded-2xl overflow-hidden bg-gradient-to-b from-white/5 to-transparent border border-white/5 transition-all duration-300;
+}
+
+.kindle-card:hover {
+  @apply transform scale-[1.02] border-purple-500/30;
+  box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+}
+
+.kindle-card.locked {
+  @apply opacity-80;
+}
+
+.kindle-card.locked:hover {
+  @apply opacity-100;
+}
+
+/* Kindle Card Cover */
+.kindle-card-cover {
+  @apply relative aspect-[4/3] overflow-hidden;
+}
+
+@media (max-width: 480px) {
+  .kindle-card-cover {
+    aspect-ratio: 16/10;
+  }
+}
+
+/* Kindle Card Info */
+.kindle-card-info {
+  @apply p-3 lg:p-4;
+}
+
+/* Kindle Card Title */
+.kindle-card-title {
+  @apply text-sm lg:text-base font-semibold text-white mb-2 line-clamp-2;
+  min-height: 2.5rem;
+}
+
+@media (max-width: 480px) {
+  .kindle-card-title {
+    @apply text-base;
+    min-height: 3rem;
+  }
+}
+
+/* Kindle Card Description */
+.kindle-card-description {
+  @apply text-xs text-gray-400 mb-3 line-clamp-2;
+}
+
+@media (max-width: 480px) {
+  .kindle-card-description {
+    @apply text-sm line-clamp-3;
+  }
+}
+
+/* Kindle Progress Bar */
+.kindle-progress-bar {
+  @apply h-1.5 bg-white/10 rounded-full overflow-hidden mb-2;
+}
+
+.kindle-progress-fill {
+  @apply h-full rounded-full transition-all duration-500;
+}
+
+/* Kindle Status */
+.kindle-status {
+  @apply text-xs font-medium;
+}
+
+.kindle-status.completed {
+  @apply text-green-400;
+}
+
+.kindle-status.in-progress {
+  @apply text-purple-400;
+}
+
+.kindle-status.locked {
+  @apply text-gray-500;
+}
+
+/* Content Type Badge */
+.content-type-badge {
+  @apply p-1.5 rounded-lg flex items-center justify-center backdrop-blur-sm;
+}
+
+.content-type-badge.video {
+  @apply bg-red-500/90 text-white;
+}
+
+.content-type-badge.pdf {
+  @apply bg-blue-500/90 text-white;
+}
+
+/* ============================================
+   MOBILE BOTTOM SAFE AREA
+   ============================================ */
+
+@media (max-width: 767px) {
+  .main-content {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-left: 0;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .main-content {
+    padding-left: var(--sidebar-width);
+  }
+
+  .sidebar.collapsed+.main-content {
+    padding-left: var(--sidebar-collapsed-width);
+  }
+}
+
+/* ============================================
+   PWA OPTIMIZATIONS
+   ============================================ */
+
+/* Safe area for notch devices */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Touch optimizations */
+@media (pointer: coarse) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+.hover-lift {
+  @apply transition-transform duration-300 hover:-translate-y-1;
+}
+
+.hover-glow {
+  @apply transition-shadow duration-300 hover:shadow-lg hover:shadow-netflix-red/20;
+}
+
+/* Lock icon pulse animation */
+@keyframes lockPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.lock-pulse:hover {
+  animation: lockPulse 0.6s ease-in-out infinite;
+}
+
+/* Slide up animation for toasts */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
