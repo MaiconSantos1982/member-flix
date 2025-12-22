@@ -56,8 +56,13 @@ interface Product {
     is_published: boolean;
 }
 
-export default function CourseBuilderPage({ params }: { params: { productId: string } }) {
-    const { productId } = params;
+export default async function CourseBuilderPage({ params }: { params: Promise<{ productId: string }> }) {
+    const { productId } = await params;
+
+    return <CourseBuilderClient productId={productId} />;
+}
+
+function CourseBuilderClient({ productId }: { productId: string }) {
     const router = useRouter();
     const { success, error: showError } = useToast();
 

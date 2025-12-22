@@ -9,9 +9,6 @@ const nextConfig = {
         ],
     },
 
-    // Configuração vazia do turbopack para silenciar o warning
-    turbopack: {},
-
     webpack: (config, { isServer }) => {
         // Configuração para react-pdf worker
         config.resolve.alias.canvas = false;
