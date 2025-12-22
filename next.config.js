@@ -8,6 +8,9 @@ const nextConfig = {
             },
         ],
     },
+    // Configuração para Vercel
+    output: 'standalone',
+
     webpack: (config) => {
         // Configuração para react-pdf worker
         config.resolve.alias.canvas = false;
