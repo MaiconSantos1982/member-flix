@@ -1,6 +1,6 @@
 {
-    "name": "MemberFlix",
-    "short_name": "MemberFlix",
+    "name": "WeMembers",
+    "short_name": "WeMembers",
     "description": "Sua área de membros exclusiva com cursos e conteúdos premium.",
     "start_url": "/",
     "display": "standalone",

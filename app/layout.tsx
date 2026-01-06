@@ -9,16 +9,16 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'MemberFlix - Área de Membros',
+  title: 'WeMembers - Área de Membros',
   description: 'Sua área de membros exclusiva com cursos e conteúdos premium.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'MemberFlix',
+    title: 'WeMembers',
   },
   openGraph: {
-    title: 'MemberFlix - Área de Membros',
+    title: 'WeMembers - Área de Membros',
     description: 'Sua área de membros exclusiva com cursos e conteúdos premium.',
     type: 'website',
   },

@@ -1,5 +1,5 @@
-// MemberFlix Service Worker
-const CACHE_NAME = 'memberflix-v1';
+// WeMembers Service Worker
+const CACHE_NAME = 'wemembers-v1';
 const STATIC_ASSETS = [
     '/',
     '/login',
@@ -98,7 +98,7 @@ self.addEventListener('push', (event) => {
     };
 
     event.waitUntil(
-        self.registration.showNotification(data.title || 'MemberFlix', options)
+        self.registration.showNotification(data.title || 'WeMembers', options)
     );
 });
 

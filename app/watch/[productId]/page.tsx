@@ -96,7 +96,7 @@ export default function WatchPage() {
 
             // Verificar matrícula
             const { data: enrollment, error: enrollmentError } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select('*')
                 .eq('user_id', user!.id)
                 .eq('product_id', productId)
@@ -112,7 +112,7 @@ export default function WatchPage() {
 
             // Carregar produto
             const { data: productData, error: productError } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .select('*')
                 .eq('id', productId)
                 .single();
@@ -122,7 +122,7 @@ export default function WatchPage() {
 
             // Carregar módulos com aulas
             const { data: modulesData, error: modulesError } = await supabase
-                .from('modules')
+                .from('wemembers_modules')
                 .select(`
           *,
           lessons (*)
@@ -134,7 +134,7 @@ export default function WatchPage() {
 
             // Carregar progresso do usuário
             const { data: progressData } = await supabase
-                .from('lesson_progress')
+                .from('wemembers_lesson_progress')
                 .select('*')
                 .eq('user_id', user!.id);
 
@@ -239,7 +239,7 @@ export default function WatchPage() {
         setSavingProgress(true);
         try {
             const { data: existing, error: selectError } = await supabase
-                .from('lesson_progress')
+                .from('wemembers_lesson_progress')
                 .select('id')
                 .eq('user_id', user!.id)
                 .eq('lesson_id', lessonId)
@@ -253,7 +253,7 @@ export default function WatchPage() {
             if (existing) {
                 console.log('🔄 Atualizando progresso existente:', existing.id);
                 const { error: updateError } = await supabase
-                    .from('lesson_progress')
+                    .from('wemembers_lesson_progress')
                     .update({
                         completed,
                         progress_percent: progressPercent,
@@ -269,7 +269,7 @@ export default function WatchPage() {
             } else {
                 console.log('➕ Criando novo registro de progresso');
                 const { error: insertError } = await supabase
-                    .from('lesson_progress')
+                    .from('wemembers_lesson_progress')
                     .insert({
                         user_id: user!.id,
                         lesson_id: lessonId,

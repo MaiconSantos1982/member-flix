@@ -35,7 +35,7 @@ export default function CatalogoPage() {
             setLoading(true);
 
             const { data: productsData, error: productsError } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .select('*')
                 .eq('is_published', true)
                 .order('title', { ascending: true });
@@ -43,7 +43,7 @@ export default function CatalogoPage() {
             if (productsError) throw productsError;
 
             const { data: enrollmentsData } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select('product_id')
                 .eq('user_id', user!.id)
                 .eq('active', true);

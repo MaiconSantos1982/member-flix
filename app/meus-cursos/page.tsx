@@ -35,7 +35,7 @@ export default function MeusursosPage() {
 
             // Buscar matrículas ativas do usuário
             const { data: enrollmentsData, error: enrollmentsError } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select(`
           product_id,
           products (*)
@@ -52,27 +52,27 @@ export default function MeusursosPage() {
 
                     // Buscar total de aulas do produto
                     const { data: modulesData } = await supabase
-                        .from('modules')
+                        .from('wemembers_modules')
                         .select('id')
                         .eq('product_id', product.id);
 
                     const moduleIds = modulesData?.map(m => m.id) || [];
 
                     const { count: totalLessons } = await supabase
-                        .from('lessons')
+                        .from('wemembers_lessons')
                         .select('*', { count: 'exact', head: true })
                         .in('module_id', moduleIds);
 
                     // Buscar aulas completadas
                     const { data: lessonsData } = await supabase
-                        .from('lessons')
+                        .from('wemembers_lessons')
                         .select('id')
                         .in('module_id', moduleIds);
 
                     const lessonIds = lessonsData?.map(l => l.id) || [];
 
                     const { count: lessonsCompleted } = await supabase
-                        .from('lesson_progress')
+                        .from('wemembers_lesson_progress')
                         .select('*', { count: 'exact', head: true })
                         .eq('user_id', user!.id)
                         .in('lesson_id', lessonIds)

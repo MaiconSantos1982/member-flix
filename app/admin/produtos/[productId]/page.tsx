@@ -111,7 +111,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
         try {
             // Buscar produto
             const { data: productData, error: productError } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .select('*')
                 .eq('id', productId)
                 .single();
@@ -121,7 +121,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
 
             // Buscar módulos com aulas
             const { data: modulesData, error: modulesError } = await supabase
-                .from('modules')
+                .from('wemembers_modules')
                 .select('*')
                 .eq('product_id', productId)
                 .order('order_index', { ascending: true });
@@ -132,7 +132,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
             const modulesWithLessons = await Promise.all(
                 (modulesData || []).map(async (module) => {
                     const { data: lessons } = await supabase
-                        .from('lessons')
+                        .from('wemembers_lessons')
                         .select('*')
                         .eq('module_id', module.id)
                         .order('order_index', { ascending: true });
@@ -188,7 +188,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
         try {
             if (editingModule) {
                 const { error } = await supabase
-                    .from('modules')
+                    .from('wemembers_modules')
                     .update({
                         title: moduleForm.title,
                         description: moduleForm.description,
@@ -201,7 +201,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
             } else {
                 const newOrderIndex = modules.length + 1;
                 const { error } = await supabase
-                    .from('modules')
+                    .from('wemembers_modules')
                     .insert({
                         product_id: productId,
                         title: moduleForm.title,
@@ -228,7 +228,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
 
         try {
             const { error } = await supabase
-                .from('modules')
+                .from('wemembers_modules')
                 .delete()
                 .eq('id', moduleId);
 
@@ -252,12 +252,12 @@ function CourseBuilderClient({ productId }: { productId: string }) {
 
         try {
             await supabase
-                .from('modules')
+                .from('wemembers_modules')
                 .update({ order_index: otherModule.order_index })
                 .eq('id', currentModule.id);
 
             await supabase
-                .from('modules')
+                .from('wemembers_modules')
                 .update({ order_index: currentModule.order_index })
                 .eq('id', otherModule.id);
 
@@ -400,7 +400,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
 
             if (editingLesson) {
                 const { error } = await supabase
-                    .from('lessons')
+                    .from('wemembers_lessons')
                     .update(lessonData)
                     .eq('id', editingLesson.id);
 
@@ -411,7 +411,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
                 const newOrderIndex = (module?.lessons.length || 0) + 1;
 
                 const { error } = await supabase
-                    .from('lessons')
+                    .from('wemembers_lessons')
                     .insert({
                         ...lessonData,
                         module_id: selectedModuleId,
@@ -436,7 +436,7 @@ function CourseBuilderClient({ productId }: { productId: string }) {
 
         try {
             const { error } = await supabase
-                .from('lessons')
+                .from('wemembers_lessons')
                 .delete()
                 .eq('id', lessonId);
 
@@ -462,12 +462,12 @@ function CourseBuilderClient({ productId }: { productId: string }) {
 
         try {
             await supabase
-                .from('lessons')
+                .from('wemembers_lessons')
                 .update({ order_index: otherLesson.order_index })
                 .eq('id', lesson.id);
 
             await supabase
-                .from('lessons')
+                .from('wemembers_lessons')
                 .update({ order_index: lesson.order_index })
                 .eq('id', otherLesson.id);
 

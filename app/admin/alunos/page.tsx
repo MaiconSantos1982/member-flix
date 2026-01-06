@@ -62,7 +62,7 @@ export default function AdminAlunosPage() {
 
             // Buscar produtos
             const { data: productsData } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .select('id, title')
                 .eq('is_published', true)
                 .order('title');
@@ -81,7 +81,7 @@ export default function AdminAlunosPage() {
 
         // Buscar matrículas do usuário
         const { data } = await supabase
-            .from('enrollments')
+            .from('wemembers_enrollments')
             .select('*, products(title)')
             .eq('user_id', user.id);
 
@@ -95,7 +95,7 @@ export default function AdminAlunosPage() {
         setSaving(true);
         try {
             const { error } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .insert({
                     user_id: selectedUser.id,
                     product_id: selectedProduct,
@@ -115,7 +115,7 @@ export default function AdminAlunosPage() {
 
             // Atualizar lista de matrículas
             const { data } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select('*, products(title)')
                 .eq('user_id', selectedUser.id);
 
@@ -134,7 +134,7 @@ export default function AdminAlunosPage() {
 
         try {
             const { error } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .delete()
                 .eq('id', enrollmentId);
 

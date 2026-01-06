@@ -60,7 +60,7 @@ export default function AdminProdutosPage() {
     const fetchProducts = async () => {
         try {
             const { data, error } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .select('*')
                 .order('created_at', { ascending: false });
 
@@ -70,7 +70,7 @@ export default function AdminProdutosPage() {
             const productsWithModules = await Promise.all(
                 (data || []).map(async (product) => {
                     const { count } = await supabase
-                        .from('modules')
+                        .from('wemembers_modules')
                         .select('*', { count: 'exact', head: true })
                         .eq('product_id', product.id);
                     return { ...product, modules_count: count || 0 };
@@ -202,7 +202,7 @@ export default function AdminProdutosPage() {
             if (editingProduct) {
                 // Update
                 const { error } = await supabase
-                    .from('products')
+                    .from('wemembers_products')
                     .update(productData)
                     .eq('id', editingProduct.id);
 
@@ -211,7 +211,7 @@ export default function AdminProdutosPage() {
             } else {
                 // Create
                 const { error } = await supabase
-                    .from('products')
+                    .from('wemembers_products')
                     .insert(productData);
 
                 if (error) throw error;
@@ -231,7 +231,7 @@ export default function AdminProdutosPage() {
     const handleDelete = async (id: string) => {
         try {
             const { error } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .delete()
                 .eq('id', id);
 
@@ -249,7 +249,7 @@ export default function AdminProdutosPage() {
     const togglePublish = async (product: Product) => {
         try {
             const { error } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .update({ is_published: !product.is_published })
                 .eq('id', product.id);
 

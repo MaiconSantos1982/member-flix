@@ -108,7 +108,7 @@ export function Sidebar({ className }: SidebarProps) {
                             <div className="w-8 h-8 bg-netflix-red rounded-lg flex items-center justify-center">
                                 <PlayCircle className="w-5 h-5 text-white" />
                             </div>
-                            <span className="text-xl font-bold text-white">MemberFlix</span>
+                            <span className="text-xl font-bold text-white">WeMembers</span>
                         </Link>
                     )}
 

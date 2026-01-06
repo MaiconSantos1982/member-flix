@@ -1,6 +1,6 @@
-# 🎬 MemberFlix
+# 🎓 WeMembers
 
-Uma plataforma de área de membros estilo Netflix, construída com Next.js e Supabase.
+Uma plataforma completa de área de membros para cursos online, construída com Next.js e Supabase.
 
 ## 🚀 Funcionalidades
 

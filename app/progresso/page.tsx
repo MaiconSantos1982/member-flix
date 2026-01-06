@@ -113,7 +113,7 @@ export default function ProgressoPage() {
 
             // Buscar matrículas
             const { data: enrollments } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select('product_id')
                 .eq('user_id', user!.id)
                 .eq('active', true);
@@ -124,7 +124,7 @@ export default function ProgressoPage() {
 
             // Buscar progresso de aulas
             const { data: progress, count: completedLessonsCount } = await supabase
-                .from('lesson_progress')
+                .from('wemembers_lesson_progress')
                 .select('*', { count: 'exact' })
                 .eq('user_id', user!.id)
                 .eq('completed', true);
@@ -144,14 +144,14 @@ export default function ProgressoPage() {
 
             for (const productId of productIds) {
                 const { data: modules } = await supabase
-                    .from('modules')
+                    .from('wemembers_modules')
                     .select('id')
                     .eq('product_id', productId);
 
                 const moduleIds = modules?.map(m => m.id) || [];
 
                 const { count: lessonCount } = await supabase
-                    .from('lessons')
+                    .from('wemembers_lessons')
                     .select('*', { count: 'exact', head: true })
                     .in('module_id', moduleIds);
 
@@ -161,14 +161,14 @@ export default function ProgressoPage() {
 
                 // Verificar se curso está completo
                 const { data: lessons } = await supabase
-                    .from('lessons')
+                    .from('wemembers_lessons')
                     .select('id')
                     .in('module_id', moduleIds);
 
                 const lessonIds = lessons?.map(l => l.id) || [];
 
                 const { count: completed } = await supabase
-                    .from('lesson_progress')
+                    .from('wemembers_lesson_progress')
                     .select('*', { count: 'exact', head: true })
                     .eq('user_id', user!.id)
                     .in('lesson_id', lessonIds)
@@ -183,7 +183,7 @@ export default function ProgressoPage() {
 
             // Atividade recente
             const { data: recent } = await supabase
-                .from('lesson_progress')
+                .from('wemembers_lesson_progress')
                 .select(`
           *,
           lessons (

@@ -64,18 +64,18 @@ export default function AdminDashboardPage() {
 
             // Contagem de produtos
             const { count: productsCount } = await supabase
-                .from('products')
+                .from('wemembers_products')
                 .select('*', { count: 'exact', head: true });
 
             // Contagem de matrículas
             const { count: enrollmentsCount } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select('*', { count: 'exact', head: true })
                 .eq('active', true);
 
             // Receita total
             const { data: enrollments } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select('products(price)')
                 .eq('active', true);
 
@@ -84,7 +84,7 @@ export default function AdminDashboardPage() {
 
             // Aulas completadas
             const { count: completedLessons } = await supabase
-                .from('lesson_progress')
+                .from('wemembers_lesson_progress')
                 .select('*', { count: 'exact', head: true })
                 .eq('completed', true);
 
@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
 
             // Matrículas recentes
             const { data: recentEnroll } = await supabase
-                .from('enrollments')
+                .from('wemembers_enrollments')
                 .select(`
           id,
           enrolled_at,

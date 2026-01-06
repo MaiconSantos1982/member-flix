@@ -23,9 +23,9 @@ export default function AdminConfiguracoesPage() {
     const [activeSection, setActiveSection] = useState('general');
 
     const [settings, setSettings] = useState({
-        siteName: 'MemberFlix',
+        siteName: 'WeMembers',
         siteDescription: 'Sua área de membros premium',
-        supportEmail: 'suporte@memberflix.com',
+        supportEmail: 'suporte@wemembers.com',
         requireEmailConfirmation: true,
         allowRegistration: true,
         enableNotifications: true,

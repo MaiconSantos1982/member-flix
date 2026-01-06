@@ -56,7 +56,7 @@ export function AdminSidebar() {
                     </div>
                     {!collapsed && (
                         <div>
-                            <span className="text-lg font-bold text-white">MemberFlix</span>
+                            <span className="text-lg font-bold text-white">WeMembers</span>
                             <span className="block text-xs text-netflix-red">Admin</span>
                         </div>
                     )}

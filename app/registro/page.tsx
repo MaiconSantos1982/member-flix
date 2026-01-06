@@ -99,7 +99,7 @@ export default function RegisterPage() {
                         <div className="w-12 h-12 bg-netflix-red rounded-xl flex items-center justify-center">
                             <PlayCircle className="w-7 h-7 text-white" />
                         </div>
-                        <span className="text-3xl font-bold text-white">MemberFlix</span>
+                        <span className="text-3xl font-bold text-white">WeMembers</span>
                     </Link>
                 </div>
 

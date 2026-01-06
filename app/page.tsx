@@ -60,7 +60,7 @@ export default function HomePage() {
 
       // Buscar produtos publicados ordenados alfabeticamente
       const { data: productsData, error: productsError } = await supabase
-        .from('products')
+        .from('wemembers_products')
         .select('*')
         .eq('is_published', true)
         .order('title', { ascending: true });
@@ -69,7 +69,7 @@ export default function HomePage() {
 
       // Buscar matrículas do usuário
       const { data: enrollmentsData, error: enrollmentsError } = await supabase
-        .from('enrollments')
+        .from('wemembers_enrollments')
         .select('product_id')
         .eq('user_id', user!.id)
         .eq('active', true);
@@ -85,7 +85,7 @@ export default function HomePage() {
 
           // Buscar módulos do produto
           const { data: modulesData } = await supabase
-            .from('modules')
+            .from('wemembers_modules')
             .select('id')
             .eq('product_id', product.id);
 
@@ -93,7 +93,7 @@ export default function HomePage() {
 
           // Buscar aulas do produto para determinar tipo de conteúdo
           const { data: lessonsData } = await supabase
-            .from('lessons')
+            .from('wemembers_lessons')
             .select('id, type')
             .in('module_id', moduleIds);
 
@@ -110,7 +110,7 @@ export default function HomePage() {
           if (hasAccess && lessonsData && lessonsData.length > 0) {
             const lessonIds = lessonsData.map(l => l.id);
             const { count } = await supabase
-              .from('lesson_progress')
+              .from('wemembers_lesson_progress')
               .select('*', { count: 'exact', head: true })
               .eq('user_id', user!.id)
               .in('lesson_id', lessonIds)
